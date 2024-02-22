@@ -1,6 +1,6 @@
 export default function Content({ handleSubmit }) {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       <label htmlFor="username" for="username">
         Username:
         <input

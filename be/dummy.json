@@ -1,7 +1,1 @@
-{
-  "users": [
-    { "id": 4, "userName": "Avi", "age": 19 },
-    { "id": 5, "userName": "345", "age": 4 },
-    { "id": 6, "userName": "Bayar-Erdene", "age": 21 }
-  ]
-}
+{"users":[{"id":6,"userName":"Bayar-Erdene","age":21},{"id":10,"userName":"Мөнхбат","age":12},{"id":11,"userName":"test","age":15}]}

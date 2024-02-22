@@ -9,6 +9,7 @@ export default function Home() {
   const edit_URL = "http://localhost:4001/edit-user";
   const [stat, setStat] = useState("");
   const [usersState, setUsers] = useState("");
+  const [showEdit, setShowEdit] = useState([false, ""]);
 
   //to see users
   async function handleUsers() {
@@ -56,17 +57,22 @@ export default function Home() {
   }
   //to edit user
   async function handleEdit(e) {
-    const data = {
-      id: e.target.id,
-    };
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    const FETCH_DATA = await fetch(edit_URL, options);
+    // e.preventDefault();
+    console.log("Edit handler working");
+    // console.log(e.target)
+
+    // const data = {
+    //   id: e.target.id,
+    // };
+
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // };
+    // const FETCH_DATA = await fetch(edit_URL, options);
     // const FETCH_JSON = await FETCH_DATA.text();
     // setStat(FETCH_JSON);
     // window.location.reload();
@@ -78,7 +84,7 @@ export default function Home() {
 
   {
     if (usersState) {
-      console.log("userState: ", usersState);
+      console.log("edit status: ", showEdit[0]);
       return (
         <div className="flex flex-col justify-center p-10 gap-10">
           <Content handleSubmit={handleSubmit} />
@@ -96,12 +102,8 @@ export default function Home() {
                       handleDelete(e);
                     }}
                   >
-                    D
+                    Delete
                   </button>
-                  {/* <input
-                    className="w-[200px] border-gray-500 border-2"
-                    placeholder="Change Name"
-                  /> */}
                   <button
                     className="border-2  p-2"
                     id={e.id}
@@ -109,14 +111,44 @@ export default function Home() {
                       console.log("e.target.id: ", e.target.id);
                       console.log("Edit button pushed");
                       // handleEdit(e);
+                      // <Edit id={e.target.id} handleEdit={handleEdit}/>
+                      setShowEdit([!showEdit[0], e.target.id]);
+                      console.log(showEdit);
                     }}
                   >
-                    E
+                    Edit
                   </button>
                 </div>
               );
             })}
-            <Edit display="hidden" />
+            {/* <div className={`${showEdit[0] ? "block" : "hidden"}`}>
+              <Edit id={showEdit[1]} handleEdit={handleEdit} />
+              {console.log("showEdit: ", showEdit)} 
+            </div> */}
+            <div className="border-2 p-10">
+              <p>Edit div</p>
+              <form onSubmit={() => console.log("Edit onSubmit working")}>
+                <label htmlFor="editName" for="editName">
+                  <input
+                    id="editName"
+                    name="editName"
+                    placeholder="Enter new name"
+                    className="border-2 border-gray-700"
+                  />
+                </label>
+                <label htmlFor="editId" for="editId">
+                  <input
+                    id="editId"
+                    name="editId"
+                    placeholder="Enter person's id"
+                    className="border-2 border-gray-700"
+                    value={showEdit[1]}
+                  />
+                </label>
+                <input type="submit" value="Submit" />
+                {/* <button onClick={() => console.log("hello")}>helloo</button> */}
+              </form>
+            </div>
           </div>
         </div>
       );
