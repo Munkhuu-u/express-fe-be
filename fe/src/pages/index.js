@@ -4,27 +4,26 @@ import Content from "../components/Content.jsx";
 export default function Home() {
   const BE_URL = "http://localhost:4001/add-user";
   const users_URL = "http://localhost:4001/users";
+  const delete_URL = "http://localhost:4001/delete-user";
+  const edit_URL = "http://localhost:4001/edit-user";
   const [stat, setStat] = useState("");
-  const [users, setUsers] = useState();
+  const [usersState, setUsers] = useState("");
 
+  //to see users
   async function handleUsers() {
-    // e.preventDefault();
-    const FETCH_DATA = await fetch(users_URL);
-    const FETCH_JSON = await FETCH_DATA.json();
-    setUsers(FETCH_JSON);
+    const FETCH_USER_DATA = await fetch(users_URL);
+    const FETCH_USER_JSON = await FETCH_USER_DATA.json();
+    setUsers(FETCH_USER_JSON);
   }
-
-  useEffect(() => {
-    handleUsers();
-  }, []);
-
+  //to add users
   async function handleSubmit(e) {
-    e.preventDefault();
+    handleUsers();
     const data = {
+      id: usersState.users[usersState.users.length - 1].id + 1,
       userName: e.target.username.value,
-      age: e.target.age.value,
+      age: Number(e.target.age.value),
     };
-
+    console.log("data in handlerSubmit fn: ", data);
     const options = {
       method: "POST",
       headers: {
@@ -36,18 +35,13 @@ export default function Home() {
     const FETCH_DATA = await fetch(BE_URL, options);
     const FETCH_JSON = await FETCH_DATA.text();
     setStat(FETCH_JSON);
-    console.log(FETCH_JSON);
-    // return { props: { FETCH_JSON } };
-    // handleUsers();
-    window.location.reload();
+    // window.location.reload();
   }
-  async function handlerDelete() {
-    e.preventDefault();
+  //to delete user
+  async function handleDelete(e) {
     const data = {
-      userName: e.target.username.value,
-      age: e.target.age.value,
+      id: e.target.id,
     };
-
     const options = {
       method: "POST",
       headers: {
@@ -55,54 +49,67 @@ export default function Home() {
       },
       body: JSON.stringify(data),
     };
-
-    const FETCH_DATA = await fetch("http://localhost:4001/udpate", options);
-    const FETCH_JSON = await FETCH_DATA.text();
-    setStat(FETCH_JSON);
-    console.log(FETCH_JSON);
-    // return { props: { FETCH_JSON } };
-    // handleUsers();
-    window.location.reload();
+    const FETCH_DATA = await fetch(delete_URL, options);
+    // const FETCH_JSON = await FETCH_DATA.text();
+    // setStat(FETCH_JSON);
+    // window.location.reload();
+  }
+  //to edit user
+  async function handleEdit(e) {
+    const data = {
+      id: e.target.id,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    const FETCH_DATA = await fetch(edit_URL, options);
+    // const FETCH_JSON = await FETCH_DATA.text();
+    // setStat(FETCH_JSON);
+    // window.location.reload();
   }
 
+  useEffect(() => {
+    handleUsers();
+  }, []);
+
   {
-    console.log("users: ", users);
-    if (users) {
+    if (usersState) {
+      console.log("userState: ", usersState);
       return (
         <div className="flex flex-col justify-center p-10 gap-10">
-          {/* <form onSubmit={handleSubmit}>
-            <label htmlFor="username" for="username">
-              Username:
-              <input
-                id="username"
-                name="username"
-                placeholder="Username:"
-                className="border-2 border-gray-700"
-              />
-            </label>
-            <label htmlFor="age" for="age">
-              Age:
-              <input
-                id="age"
-                name="age"
-                placeholder="Age:"
-                className="border-2 border-gray-700"
-                type="number"
-              />
-            </label>
-            <input type="submit" value="Submit" />
-          </form> */}
           <Content handleSubmit={handleSubmit} />
-          <div>
-            {users.users.map((e) => {
-              console.log("e.userName: ", e.userName);
+          <div className="flex flex-col gap-2">
+            {usersState.users.map((e) => {
               return (
-                <div className="flex flex-row">
+                <div className="flex flex-row w-80 justify-end gap-10">
                   <p>{e.userName}</p>
-                  <button className="border-2" onClick={handlerDelete()}>
+                  <button
+                    className="border-2 p-2"
+                    id={e.id}
+                    onClick={(e) => {
+                      console.log("e.target.id: ", e.target.id);
+                      console.log("Delete button pushed");
+                      handleDelete(e);
+                    }}
+                  >
                     D
                   </button>
-                  <button className="border-2">E</button>
+                  <input />
+                  <button
+                    className="border-2  p-2"
+                    id={e.id}
+                    onClick={(e) => {
+                      console.log("e.target.id: ", e.target.id);
+                      console.log("Edit button pushed");
+                      // handleEdit(e);
+                    }}
+                  >
+                    E
+                  </button>
                 </div>
               );
             })}
@@ -112,29 +119,7 @@ export default function Home() {
     } else {
       return (
         <div>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username" for="username">
-              Username:
-              <input
-                id="username"
-                name="username"
-                placeholder="Username:"
-                className="border-2 border-gray-700"
-              />
-            </label>
-            <label htmlFor="age" for="age">
-              Age:
-              <input
-                id="age"
-                name="age"
-                placeholder="Age:"
-                className="border-2 border-gray-700"
-                type="number"
-              />
-            </label>
-            <input type="submit" value="Submit" />
-          </form>
-          <p>{stat}</p>
+          <Content handleSubmit={handleSubmit} />
         </div>
       );
     }

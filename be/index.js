@@ -15,7 +15,6 @@ app.get("/users", (req, res) => {
 
 app.post("/add-user", (req, res) => {
   const newUser = req.body;
-  //   console.log(newUser);
 
   fs.readFile("dummy.json", (error, data) => {
     if (error) {
@@ -33,11 +32,41 @@ app.post("/add-user", (req, res) => {
         }
       });
     }
-    // fs.writeFile("dummy.json", JSON.stringify, err);
+  });
+});
+
+app.post("/delete-user", (req, res) => {
+  let deletedDummy = dummyData.users.filter((user) => {
+    return user.id != req.body.id;
   });
 
-  res.status(200);
-  res.send("User added successfully");
+  fs.writeFile("dummy.json", JSON.stringify({ users: deletedDummy }), (err) => {
+    if (err) {
+      console.log(err);
+      res.send("Error happened when write file");
+    } else {
+      console.log("dummyData: ", dummyData);
+      res.send("dummyData changed success");
+    }
+  });
+});
+
+app.post("/edit-user", (req, res) => {
+  let editedDummy = dummyData.users.map((user) => {
+    if (user.id == req.body.id) {
+      return user.id != req.body.id;
+    }
+  });
+
+  fs.writeFile("dummy.json", JSON.stringify({ users: editedDummy }), (err) => {
+    if (err) {
+      console.log(err);
+      res.send("Error happened when write file");
+    } else {
+      console.log("dummyData: ", dummyData);
+      res.send("dummyData changed success");
+    }
+  });
 });
 
 app.listen("4001", () => {
