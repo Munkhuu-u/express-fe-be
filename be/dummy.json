@@ -1,1 +1,7 @@
-{"users":[{"id":3,"userName":"Dulguun","age":26},{"id":4,"userName":"Avi","age":19},{"id":5,"userName":"345","age":4}]}
+{
+  "users": [
+    { "id": 4, "userName": "Avi", "age": 19 },
+    { "id": 5, "userName": "345", "age": 4 },
+    { "id": 6, "userName": "Bayar-Erdene", "age": 21 }
+  ]
+}

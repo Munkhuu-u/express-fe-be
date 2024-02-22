@@ -1,5 +1,4 @@
 export default function Content({ handleSubmit }) {
-  console.log("Content.jsx working");
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="username" for="username">

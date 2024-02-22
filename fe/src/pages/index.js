@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Content from "../components/Content.jsx";
+import Edit from "@/components/Edit.jsx";
 
 export default function Home() {
   const BE_URL = "http://localhost:4001/add-user";
@@ -23,7 +24,6 @@ export default function Home() {
       userName: e.target.username.value,
       age: Number(e.target.age.value),
     };
-    console.log("data in handlerSubmit fn: ", data);
     const options = {
       method: "POST",
       headers: {
@@ -98,7 +98,10 @@ export default function Home() {
                   >
                     D
                   </button>
-                  <input />
+                  {/* <input
+                    className="w-[200px] border-gray-500 border-2"
+                    placeholder="Change Name"
+                  /> */}
                   <button
                     className="border-2  p-2"
                     id={e.id}
@@ -113,6 +116,7 @@ export default function Home() {
                 </div>
               );
             })}
+            <Edit display="hidden" />
           </div>
         </div>
       );
