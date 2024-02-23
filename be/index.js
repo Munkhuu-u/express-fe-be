@@ -54,10 +54,6 @@ app.post("/delete-user", (req, res) => {
 app.post("/edit-user", (req, res) => {
   let editedDummy = dummyData.users.map((user) => {
     if (user.id == req.body.id) {
-      // console.log("req.body: ", req.body);
-      // console.log("req.body.name: ", req.body.name);
-      // console.log("req.body.id: ", req.body.id);
-      // console.log("consoling in edit end point USER: ", user);
       return { id: user.id, userName: req.body.userName, age: user.age };
     } else {
       return { id: user.id, userName: user.userName, age: user.age };
