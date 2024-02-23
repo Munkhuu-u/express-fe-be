@@ -1,1 +1,7 @@
-{"users":[{"id":6,"userName":"Bayar-Erdene","age":21},{"id":10,"userName":"Мөнхбат","age":12},{"id":11,"userName":"test","age":15}]}
+{
+  "users": [
+    { "id": 1, "userName": "Davka ah", "age": 18 },
+    { "id": 3, "userName": "Enkhtuya", "age": 26 },
+    { "id": 5, "userName": "", "age": 0 }
+  ]
+}
