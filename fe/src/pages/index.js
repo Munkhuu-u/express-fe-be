@@ -40,7 +40,7 @@ export default function Home() {
     const FETCH_JSON = await FETCH_DATA.text();
     setStat(FETCH_JSON);
   }
-  //to delete user
+  //to delete users
   async function handleDelete(e) {
     console.log("handleDelete working");
     const data = {
@@ -56,8 +56,7 @@ export default function Home() {
     };
     const FETCH_DATA = await fetch(delete_URL, options);
   }
-
-  //to edit user
+  //to edit users
   async function handleEdit(e) {
     e.preventDefault();
     setShowSubmit(!showSubmit);
@@ -77,7 +76,7 @@ export default function Home() {
     const FETCH_JSON = await FETCH_DATA.text();
     setStat(FETCH_JSON);
   }
-
+  //to show
   useEffect(() => {
     handleUsers();
   }, []);
@@ -85,7 +84,7 @@ export default function Home() {
   {
     if (usersState) {
       return (
-        <div className="flex flex-col justify-center p-10 gap-10">
+        <div className="flex flex-col items-center p-10 gap-10 m-auto">
           <Users
             usersState={usersState}
             handleDelete={handleDelete}

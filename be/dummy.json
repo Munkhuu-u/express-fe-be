@@ -1,9 +1,1 @@
-{
-  "users": [
-    { "id": 5, "userName": "Ganbayar", "age": 18 },
-    { "id": 8, "userName": "Khosbayar", "age": 21 },
-    { "id": 10, "userName": "Batzorig", "age": 0 },
-    { "id": 11, "userName": "Temuulen", "age": 18 },
-    { "id": 21, "userName": "Temuujin", "age": 22 }
-  ]
-}
+{"users":[{"id":5,"userName":"Ganbayar","age":18},{"id":8,"userName":"Khosbayar","age":21},{"id":10,"userName":"Batzorig","age":0},{"id":21,"userName":"Temuujin","age":22}]}
