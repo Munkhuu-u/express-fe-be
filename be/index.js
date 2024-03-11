@@ -71,6 +71,6 @@ app.post("/edit-user", (req, res) => {
   });
 });
 
-app.listen("4001", () => {
-  console.log("Server is listening at port 4001");
+app.listen("4002", () => {
+  console.log("Server is listening at port 4002");
 });
